@@ -1,7 +1,7 @@
 
 exports.up = function(knex) {
     return knex.schema
-        .createTable('skill_proficiences', tbl => {
+        .createTable('skill_proficiencies', tbl => {
             tbl.increments()
             tbl.integer('character_id')
                 .unsigned()
