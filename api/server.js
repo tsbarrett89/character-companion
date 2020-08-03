@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors')
 
 const authRouter = require('../auth/authRouter')
+const usersRouter = require('../users/usersRouter')
 
 const server = express()
 
@@ -13,5 +14,6 @@ server.get('/', (req, res) => {
 })
 
 server.use('/auth', authRouter)
+server.use('/users', usersRouter)
 
 module.exports = server
