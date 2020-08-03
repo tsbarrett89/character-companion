@@ -15,8 +15,8 @@ function findBy(username){
     return db('users').where(username)
 }
 
-function updateUser(updates, id){
-    return db('users').where({ id }).update(updates)
+function updateUser(updates, username){
+    return db('users').where({ username }).update(updates)
 }
 
 function removeUser(id){

@@ -44,4 +44,32 @@ router.post('/login', (req, res) => {
         })
 })
 
+router.put('/:username', (req, res) => {
+    const username = req.params.username
+    const updates = req.body
+
+    if(updates.username){
+        const hash = bcrypt.hashSync(updates.password, 12)
+        updates.password = hash
+    }
+    
+    users.findBy({ username })
+    .then(user => {
+        if(user){
+            users.updateUser(updates, username)
+                .then(updatedUser => {
+                    res.status(200).json(updatedUser)
+                })
+                .catch(err => {
+                    res.status(409).json({ message: "Unable to update user."})
+                })
+        } else {
+            res.status(404).json({ message: "No user found."})
+        }
+    })
+    .catch(err => {
+        res.status(404).json({ message: "Could not find user."})
+    })
+})
+
 module.exports = router
