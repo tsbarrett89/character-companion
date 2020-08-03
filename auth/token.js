@@ -1,9 +1,5 @@
 const jwt = require('jsonwebtoken')
 
-module.exports = {
-    createToken
-}
-
 function createToken (user){
     const payload = {
         subject: user.id,
@@ -16,3 +12,5 @@ function createToken (user){
 
     return jwt.sign(payload, secret, options)
 }
+
+module.exports = createToken
