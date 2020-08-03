@@ -37,10 +37,36 @@ exports.up = function(knex) {
             tbl.string('tool')
                 .notNullable()
         })
+        .createTable('armor_proficiencies', tbl => {
+            tbl.increments()
+            tbl.integer('character_id')
+                .unsigned()
+                .notNullable()
+                .references('id')
+                .inTable('characters')
+                .onDelete('CASCADE')
+                .onUpdate('CASCADE')
+            tbl.string('armor')
+                .notNullable()
+        })
+        .createTable('weapon_proficiencies', tbl => {
+            tbl.increments()
+            tbl.integer('character_id')
+                .unsigned()
+                .notNullable()
+                .references('id')
+                .inTable('characters')
+                .onDelete('CASCADE')
+                .onUpdate('CASCADE')
+            tbl.string('weapon')
+                .notNullable()
+        })
 };
 
 exports.down = function(knex) {
     return knex.schema
+        .dropTableIfExists('weapon_proficiencies')
+        .dropTableIfExists('armor_proficiencies')
         .dropTableIfExists('tool_proficiencies')
         .dropTableIfExists('language_proficiencies')
         .dropTableIfExists('skill_proficiencies')
