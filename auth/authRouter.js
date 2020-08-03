@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs')
 const express = require('express')
-const users = require('./authModel.js')
+const users = require('../users/usersModel.js')
 const createToken = require('./token')
 
 const router = express.Router()
@@ -28,7 +28,7 @@ router.post('/register', (req, res) => {
 router.post('/login', (req, res) => {
     const { username, password } = req.body
 
-    users.findBy(username)
+    users.findBy({ username })
         .first()
         .then(user => {
             if (user && bcrypt.compareSync(password, user.password)){
