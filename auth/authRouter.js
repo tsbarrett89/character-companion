@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs')
 const express = require('express')
 const users = require('./authModel.js')
-const generateToken = require('./token')
+const { createToken } = require('./token')
 
 const router = express.Router()
 
@@ -13,7 +13,7 @@ router.post('/register', (req, res) => {
         creds.password = hash
         users.add(creds)
             .then(userId => {
-                const token = generateToken(userId)
+                const token = createToken(userId)
 
                 res.status(201).json({ user_id: userId, token })
             })

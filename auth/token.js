@@ -1,6 +1,10 @@
 const jwt = require('jsonwebtoken')
 
-export default function createToken (user){
+module.exports = {
+    createToken
+}
+
+function createToken (user){
     const payload = {
         subject: user.id,
         username: user.username,
