@@ -41,4 +41,27 @@ router.get('/all/:user_id', (req, res) => {
         })
 })
 
+router.put('/:id', (req, res) => {
+    const id = req.params.id
+    const updates = req.body
+
+    chars.findById(id)
+        .then(char => {
+            if(char){
+                chars.update(updates, id)
+                    .then(num => {
+                        res.status(201).json({...char, updates})
+                    })
+                    .catch(err => {
+                        res.status(400).json({message: "Unable to update character"})
+                    })
+            } else {
+                res.status(404).json({ message: "Could not find character." })
+            }
+        })
+        .catch(err => {
+            res.status(404).json({ message: "Could not find character." })
+        })
+})
+
 module.exports = router
