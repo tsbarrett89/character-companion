@@ -9,7 +9,7 @@ module.exports = {
 }
 
 function add(details){
-    return db('characters').insert(details)
+    return db('characters').insert(details, "id")
 }
 
 function findById(id){
