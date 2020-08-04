@@ -1,5 +1,3 @@
-const { Router } = require("express");
-
 const express = require('express')
 const chars = require('./charactersModel.js')
 
@@ -67,6 +65,28 @@ router.put('/:id', (req, res) => {
         })
         .catch(err => {
             res.status(404).json({ message: "Could not find character." })
+        })
+})
+
+router.delete('/:id', (req, res) => {
+    const id = req.params.id
+
+    chars.findById(id)
+        .then(char => {
+            if(char){
+                chars.remove(id)
+                    .then(num => {
+                        res.status(200).json({ deleted: char })
+                    })
+                    .catch(err => {
+                        res.status(500).json({ message: "Unable to delete character."})
+                    })
+            } else {
+                res.status(404).json({ message: "Character not found."})
+            }
+        })
+        .catch(err => {
+            res.json(404).json({ message: "Character not found." })
         })
 })
 
