@@ -17,8 +17,8 @@ router.post('/create', (req, res) => {
         })
 })
 
-router.get('/:id', (req, res) => {
-    const user_id = req.params.id
+router.get('/all/:user_id', (req, res) => {
+    const user_id = req.params.user_id
 
     chars.findAllByUserId(user_id)
         .then(characters => {
