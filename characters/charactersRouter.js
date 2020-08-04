@@ -50,7 +50,13 @@ router.put('/:id', (req, res) => {
             if(char){
                 chars.update(updates, id)
                     .then(num => {
-                        res.status(201).json({...char, updates})
+                        chars.findById(id)
+                            .then(char => {
+                                res.status(201).json(char)
+                            })
+                            .catch(err => {
+                                res.status(404).json({ message: "Character not found" })
+                            })
                     })
                     .catch(err => {
                         res.status(400).json({message: "Unable to update character"})
