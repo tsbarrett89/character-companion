@@ -17,6 +17,18 @@ router.post('/create', (req, res) => {
         })
 })
 
+router.get('/:id', (req, res) => {
+    const id = req.params.id
+
+    chars.findById(id)
+        .then(char => {
+            res.status(200).json(char)
+        })
+        .catch(err => {
+            res.status(404).json({ message: "Character not found."})
+        })
+})
+
 router.get('/all/:user_id', (req, res) => {
     const user_id = req.params.user_id
 
